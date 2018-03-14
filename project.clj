@@ -1,7 +1,7 @@
 (defproject todo "0.1.0-SNAPSHOT"
 
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "A ToDo Backend implementation in Clojure using Luminus and Immutant"
+  :url "https://github.com/joshrotenberg/todo-backend-clojure-luminus-immutant"
 
   :dependencies [[clj-time "0.14.2"]
                  [compojure "1.6.0"]
