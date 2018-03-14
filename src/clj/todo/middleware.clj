@@ -7,7 +7,7 @@
 
 (defonce cors-headers
   {"access-control-allow-headers" "accept, content-type"
-   "access-control-allow-methods" "GET,HEAD,POST,DELETE,PUT"
+   "access-control-allow-methods" "GET,HEAD,POST,DELETE,PUT,OPTION"
    "access-control-allow-origin" "*"})
 
 (defn wrap-cors [handler]
