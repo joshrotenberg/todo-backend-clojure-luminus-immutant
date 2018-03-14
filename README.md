@@ -2,7 +2,7 @@
 
 generated using Luminus version "2.9.12.31"
 
-FIXME
+[ ![Codeship Status for joshrotenberg/todo-backend-clojure-luminus-immutant](https://app.codeship.com/projects/4ed146c0-0962-0136-c52d-4a8e80685515/status?branch=master)](https://app.codeship.com/projects/281424)
 
 ## Prerequisites
 
