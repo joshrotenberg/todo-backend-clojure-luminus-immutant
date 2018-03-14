@@ -14,6 +14,10 @@
   (context "/api" []
     :tags ["thingie"]
 
+    (GET "/" []
+         :return []
+         (ok))
+
     (GET "/plus" []
       :return       Long
       :query-params [x :- Long, {y :- Long 1}]
