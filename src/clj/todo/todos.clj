@@ -2,6 +2,6 @@
   (:require [immutant.caching :as c]
             [mount.core :refer [defstate]]))
 
-(defstate todos-cache
+(defstate cache
   :start (c/cache "todos")
   :stop (c/stop "todos"))

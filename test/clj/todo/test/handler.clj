@@ -8,12 +8,13 @@
   :once
   (fn [f]
     (mount/start #'todo.config/env
-                 #'todo.handler/app)
+                 #'todo.handler/app
+                 #'todo.todos/cache)
     (f)))
 
 (deftest test-app
   (testing "main route"
-    (let [response (app (request :get "/"))]
+    (let [response (app (request :get "/api/plus?x=2&y=4"))]
       (is (= 200 (:status response)))))
 
   (testing "not-found route"

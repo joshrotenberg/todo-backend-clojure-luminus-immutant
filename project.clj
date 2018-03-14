@@ -4,6 +4,7 @@
   :url "https://github.com/joshrotenberg/todo-backend-clojure-luminus-immutant"
 
   :dependencies [[clj-time "0.14.2"]
+                 [org.immutant/immutant "2.1.10"]
                  [compojure "1.6.0"]
                  [cprop "0.1.11"]
                  [funcool/struct "1.2.0"]
