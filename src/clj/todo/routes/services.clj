@@ -2,17 +2,31 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [todo.todos :refer :all]
-            [schema.core :as s]))
+            [schema.core :as s])
+  (:import (java.util.function ToDoubleBiFunction)))
+
+(s/def Id s/Num)
+(s/defschema ToDo
+  {(s/optional-key :id) Id
+   })
 
 (defapi service-routes
   {:swagger {:ui "/swagger-ui"
              :spec "/swagger.json"
-             :data {:info {:version "1.0.0"
-                           :title "Sample API"
-                           :description "Sample Services"}}}}
+             :data {:info {:version     "1.0.0"
+                           :title       "ToDo API"
+                           :description "ToDo Services"}}}}
 
-  (context "/api" []
+  (context "/todos" []
     :tags ["todo"]
+
+    (OPTIONS "/" []
+      (ok))
+    (OPTIONS "/:id" []
+      (ok)
+      )
+    (POST "/" []
+      )
 
     (GET "/" []
       :return []

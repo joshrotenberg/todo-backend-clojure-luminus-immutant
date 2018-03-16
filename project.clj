@@ -35,28 +35,30 @@
   :plugins [[lein-immutant "2.1.0"]]
 
   :profiles
-  {:uberjar {:omit-source true
-             :aot :all
-             :uberjar-name "todo.jar"
-             :source-paths ["env/prod/clj"]
-             :resource-paths ["env/prod/resources"]}
+  {:uberjar       {:omit-source    true
+                   :aot            :all
+                   :uberjar-name   "todo.jar"
+                   :source-paths   ["env/prod/clj"]
+                   :resource-paths ["env/prod/resources"]}
 
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:jvm-opts ["-server" "-Dconf=dev-config.edn"]
-                  :dependencies [[pjstadig/humane-test-output "0.8.3"]
-                                 [prone "1.5.0"]
-                                 [ring/ring-devel "1.6.3"]
-                                 [ring/ring-mock "0.3.2"]]
-                  :plugins      [[com.jakemccrary/lein-test-refresh "0.19.0"]]
-                  
-                  :source-paths ["env/dev/clj"]
-                  :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user}
-                  :injections [(require 'pjstadig.humane-test-output)
-                               (pjstadig.humane-test-output/activate!)]}
-   :project/test {:jvm-opts ["-server" "-Dconf=test-config.edn"]
-                  :resource-paths ["env/test/resources"]}
-   :profiles/dev {}
+   :project/dev   {:jvm-opts       ["-server" "-Dconf=dev-config.edn"]
+                   :dependencies   [[pjstadig/humane-test-output "0.8.3"]
+                                    [prone "1.5.0"]
+                                    [ring/ring-devel "1.6.3"]
+                                    [ring/ring-mock "0.3.2"]]
+                   :plugins        [[com.jakemccrary/lein-test-refresh "0.19.0"]]
+
+                   :source-paths   ["env/dev/clj"]
+                   :resource-paths ["env/dev/resources"]
+                   :repl-options   {:init-ns user}}
+   ;:injections [(require 'pjstadig.humane-test-output)
+   ;             (pjstadig.humane-test-output/activate!)]
+
+
+   :project/test  {:jvm-opts       ["-server" "-Dconf=test-config.edn"]
+                   :resource-paths ["env/test/resources"]}
+   :profiles/dev  {}
    :profiles/test {}})

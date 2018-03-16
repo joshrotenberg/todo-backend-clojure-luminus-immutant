@@ -30,8 +30,7 @@
 (defn update
   [id m]
   (if-let [current (read id)]
-    (do (println current)
-        (c/swap-in! cache id (constantly (merge current m))))))
+    (c/swap-in! cache id (constantly (merge current m)))))
 
 (defn delete
   [id]

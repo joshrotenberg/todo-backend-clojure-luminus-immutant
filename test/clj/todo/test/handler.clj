@@ -13,8 +13,15 @@
     (f)))
 
 (deftest test-app
+  (testing "/"
+    (let [response (app (request :get "/todos"))]
+      (is (= 200 (:status response))))
+    (let [response (app (request :options "/todos"))]
+      (is (= 200 (:status response)))))
+
+
   (testing "main route"
-    (let [response (app (request :get "/api/plus?x=2&y=4"))]
+    (let [response (app (request :get "/todos/plus?x=2&y=4"))]
       (is (= 200 (:status response)))))
 
   (testing "not-found route"
