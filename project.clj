@@ -19,12 +19,13 @@
                  [org.clojure/clojure "1.9.0"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/tools.logging "0.4.0"]
+                 [cheshire "5.8.0"]
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-defaults "0.3.1"]
                  [selmer "1.11.7"]]
 
-  :min-lein-version "2.0.0"
+  :min-lein-version "2.4.0"
   
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]

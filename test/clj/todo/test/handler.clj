@@ -1,6 +1,7 @@
 (ns todo.test.handler
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
+            [cheshire.core :as json]
             [todo.handler :refer :all]
             [mount.core :as mount]))
 
@@ -17,7 +18,17 @@
     (let [response (app (request :get "/todos"))]
       (is (= 200 (:status response))))
     (let [response (app (request :options "/todos"))]
-      (is (= 200 (:status response)))))
+      (is (= 200 (:status response))))))
+
+(deftest test-add
+  (testing "POST"
+    (let [response (app (-> (request :post "/todos")
+                            (json-body {:doof "cha"})))
+          id (-> (:body response) slurp json/parse-string (get "id"))]
+      (is (= 200 (:status response)))
+      (let [response (app (request :get (str "/todos/" id)))]
+        (println (request :get (str "/todos/" id)) response)
+        (is (= 200 (:status response))))))
 
 
   (testing "main route"

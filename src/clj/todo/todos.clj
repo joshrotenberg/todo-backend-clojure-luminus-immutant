@@ -1,21 +1,20 @@
 (ns todo.todos
   (:refer-clojure :exclude [read update])
   (:require [immutant.caching :as c]
-            [mount.core :refer [defstate]]))
+            [mount.core :refer [defstate]])
+  (:import java.util.UUID))
 
 (defstate cache
   :start (c/cache "todos")
   :stop (c/stop "todos"))
 
-(def id (atom 0))
-
-(defn next-id
+(defn generate-id
   []
-  (swap! id inc))
+  (str (UUID/randomUUID)))
 
 (defn create
   [m]
-  (let [id (next-id)]
+  (let [id (generate-id)]
     (assoc (c/swap-in! cache id (constantly m)) :id id)))
 
 (defn read
