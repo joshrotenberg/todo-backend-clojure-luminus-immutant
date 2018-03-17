@@ -14,12 +14,14 @@
 
 (defn create
   [m]
-  (let [id (generate-id)]
+  (let [id (generate-id)
+        m (merge m (when (nil? (:completed m))
+                     {:completed false}))]
     (assoc (c/swap-in! cache id (constantly m)) :id id)))
 
 (defn read
   [id]
-  (if-let [todo (get cache id)]
+  (when-let [todo (get cache id)]
     (assoc todo :id id)))
 
 (defn read-all
@@ -28,7 +30,7 @@
 
 (defn update
   [id m]
-  (if-let [current (read id)]
+  (when-let [current (read id)]
     (c/swap-in! cache id (constantly (merge current m)))))
 
 (defn delete
