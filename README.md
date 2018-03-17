@@ -26,7 +26,7 @@ See the Swagger UI [here][5]
 
 ## License
 
-Copyright © 2018 FIXME
+Copyright © 2018 Josh Rotenberg
 
 [0]: https://www.todobackend.com/index.html
 [1]: http://www.luminusweb.net/
