@@ -34,3 +34,7 @@
 (defn delete
   [id]
   (.remove cache id))
+
+(defn delete-all
+  []
+  (.clear cache))

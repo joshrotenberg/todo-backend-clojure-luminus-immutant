@@ -28,46 +28,30 @@
 
     (POST "/" []
       :return s/Any
-      :summary "Add a ToDo item"
+      :summary "Add a todo item"
       :body [request-body s/Any]
       (ok (t/create request-body)))
 
     (GET "/:id" []
       :return s/Any
       :path-params [id :- s/Any]
-      :summary "Find a ToDo by id"
-      (ok (t/read id)))
+      :summary "Find a todo by id"
+      (if-let [todo (t/read id)]
+        (ok todo)
+        (not-found)))
 
     (GET "/" []
-      :return []
-      (ok))
+      :return [s/Any]
+      :summary "Get all todos"
+      (ok (t/read-all)))
 
-    (GET "/plus" []
-      :return Long
-      :query-params [x :- Long, {y :- Long 1}]
-      :summary "x+y with query-parameters. y defaults to 1."
-      (ok (+ x y)))
+    (DELETE "/:id" []
+      :return s/Any
+      :path-params [id :- s/Any]
+      :summary "Delete a todo"
+      (ok (t/delete id)))
 
-    (POST "/minus" []
-      :return Long
-      :body-params [x :- Long, y :- Long]
-      :summary "x-y with body-parameters."
-      (ok (- x y)))
-
-    (GET "/times/:x/:y" []
-      :return Long
-      :path-params [x :- Long, y :- Long]
-      :summary "x*y with path-parameters"
-      (ok (* x y)))
-
-    (POST "/divide" []
-      :return Double
-      :form-params [x :- Long, y :- Long]
-      :summary "x/y with form-parameters"
-      (ok (/ x y)))
-
-    (GET "/power" []
-      :return Long
-      :header-params [x :- Long, y :- Long]
-      :summary "x^y with header-parameters"
-      (ok (long (Math/pow x y))))))
+    (DELETE "/" []
+      :return s/Any
+      :summary "Delete all todos"
+      (ok (t/delete-all)))))
