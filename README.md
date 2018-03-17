@@ -24,4 +24,4 @@ Run the tests [here][2]
 
 ## License
 
-Copyright © 2018 FIXME
+Copyright © 2018 Josh Rotenberg
