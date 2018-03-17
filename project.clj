@@ -25,7 +25,7 @@
                  [ring/ring-defaults "0.3.1"]
                  [selmer "1.11.7"]]
 
-  :min-lein-version "2.4.0"
+  :min-lein-version "2.0.0"
   
   :source-paths ["src/clj"]
   :test-paths ["test/clj"]
