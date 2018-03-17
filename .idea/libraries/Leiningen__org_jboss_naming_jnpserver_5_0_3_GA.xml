@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.jboss.naming/jnpserver:5.0.3.GA">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/naming/jnpserver/5.0.3.GA/jnpserver-5.0.3.GA.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

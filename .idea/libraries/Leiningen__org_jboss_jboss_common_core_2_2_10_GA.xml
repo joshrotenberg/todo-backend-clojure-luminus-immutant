@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.jboss/jboss-common-core:2.2.10.GA">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/jboss-common-core/2.2.10.GA/jboss-common-core-2.2.10.GA.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

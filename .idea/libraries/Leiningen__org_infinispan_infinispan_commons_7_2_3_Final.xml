@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.infinispan/infinispan-commons:7.2.3.Final">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/infinispan/infinispan-commons/7.2.3.Final/infinispan-commons-7.2.3.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

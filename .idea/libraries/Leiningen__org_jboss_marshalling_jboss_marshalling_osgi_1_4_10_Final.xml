@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.jboss.marshalling/jboss-marshalling-osgi:1.4.10.Final">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/marshalling/jboss-marshalling-osgi/1.4.10.Final/jboss-marshalling-osgi-1.4.10.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

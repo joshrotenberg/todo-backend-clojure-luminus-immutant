@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: org.immutant/scheduling:2.1.10">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/immutant/scheduling/2.1.10/scheduling-2.1.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: com.ibm.icu/icu4j:58.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/ibm/icu/icu4j/58.2/icu4j-58.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
