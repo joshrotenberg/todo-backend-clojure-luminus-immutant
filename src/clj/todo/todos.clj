@@ -22,9 +22,7 @@
 (defn read
   [id]
   (when-let [todo (get cache id)]
-    (assoc todo :id id)
-    )
-  )
+    (assoc todo :id id)))
 
 (defn read-all
   []
