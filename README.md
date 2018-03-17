@@ -7,6 +7,7 @@ generated using Luminus version "2.9.12.31"
 ## Overview
 
 This is an implementation of the [ToDo Backend][0] using Clojure, [Luminus][1] and [Immutant][2].
+
 ## Prerequisites
 
 You will need [Leiningen][3] 2.0 or above installed.
@@ -23,13 +24,13 @@ Run the tests [here][4]
 
 See the Swagger UI [here][5]
 
-[0]: https://www.todobackend.com/index.html
-[1]: http://www.luminusweb.net/
-[2]http://immutant.org/
-[3]: https://github.com/technomancy/leiningen
-[4]: https://www.todobackend.com/specs/index.html?https://todo-backend-clojure-luminus.herokuapp.com/todos
-[5]: http://todo-backend-clojure-luminus.herokuapp.com/swagger-ui/index.html
-
 ## License
 
 Copyright © 2018 FIXME
+
+[0]: https://www.todobackend.com/index.html
+[1]: http://www.luminusweb.net/
+[2]: http://immutant.org/
+[3]: https://github.com/technomancy/leiningen
+[4]: https://www.todobackend.com/specs/index.html?https://todo-backend-clojure-luminus.herokuapp.com/todos
+[5]: http://todo-backend-clojure-luminus.herokuapp.com/swagger-ui/index.html
