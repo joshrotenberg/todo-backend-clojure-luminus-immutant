@@ -13,7 +13,7 @@
 (defn with-url
   [todo request]
   (let [host (or (env :host) (-> request :headers (get "host" "localhost")))
-        scheme (or (env :scheme) (-> request :scheme name))
+        scheme (name (or (env :scheme) (:scheme request)))
         id (:id todo)]
     (log/info "building url for" scheme host id)
     (merge todo {:url (str scheme "://" host "/todos/" id)})))
