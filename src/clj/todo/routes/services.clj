@@ -8,7 +8,6 @@
 (s/defschema ToDo
   {(s/optional-key :id) Id})
 
-
 (defapi service-routes
   {:swagger {:ui   "/swagger-ui"
              :spec "/swagger.json"
@@ -30,14 +29,17 @@
       :return s/Any
       :summary "Add a todo item"
       :body [request-body s/Any]
-      (ok (t/create request-body)))
+      (let [todo (t/create request-body)
+            id (:id todo)]
+        (header (ok todo) "location" (str "/todos/" id)))
+      )
 
     (GET "/:id" []
       :return s/Any
       :path-params [id :- s/Any]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
-        (ok todo)
+        (header (ok todo) "location" (str "/todos/" id))
         (not-found)))
 
     (GET "/" []
