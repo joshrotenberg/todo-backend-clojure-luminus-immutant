@@ -1,2 +1,4 @@
 {:production true
- :port 3000}
+ :scheme     :https
+ :host       "todo-backend-clojure-luminus.herokuapp.com"
+ :port       3000}

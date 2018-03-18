@@ -49,7 +49,7 @@
         (is (= todo {:id        id
                      :doof      "cha"
                      :completed false
-                     :url       (str "https://localhost/todos/" id)}))
+                     :url       (str "http://localhost/todos/" id)}))
         (is (= 200 (:status response)))))))
 
 (deftest test-get-all
@@ -60,8 +60,6 @@
           todo2 (parse-response-body response2)
           response3 (app (request :get "/todos"))
           both (parse-response-body response3)]
-      (println todo1)
-      (println both)
       (is (= 200 (:status response1)))
       (is (= 200 (:status response2)))
       (is (= 200 (:status response3)))

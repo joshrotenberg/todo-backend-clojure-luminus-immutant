@@ -1,6 +1,7 @@
 (ns todo.routes.services
   (:require [ring.util.http-response :refer :all]
             [clojure.tools.logging :as log]
+            [todo.config :refer [env]]
             [compojure.api.sweet :refer :all]
             [todo.todos :as t]
             [schema.core :as s]))
@@ -11,9 +12,8 @@
 
 (defn with-url
   [todo request]
-  (let [host (-> request :headers (get "host" "localhost"))
-        scheme (-> request :scheme name)
-        scheme "https"
+  (let [host (or (env :host) (-> request :headers (get "host" "localhost")))
+        scheme (or (env :scheme) (-> request :scheme name))
         id (:id todo)]
     (log/info "building url for" scheme host id)
     (merge todo {:url (str scheme "://" host "/todos/" id)})))
