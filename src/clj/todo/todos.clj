@@ -15,7 +15,8 @@
 (defn create
   [m]
   (let [id (generate-id)
-        m (merge m (when (nil? (:completed m))
+        m (merge m {:url (str "/todos/" id)}
+                 (when (nil? (:completed m))
                      {:completed false}))]
     (assoc (c/swap-in! cache id (constantly m)) :id id)))
 

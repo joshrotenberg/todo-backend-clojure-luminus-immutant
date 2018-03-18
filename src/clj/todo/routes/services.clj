@@ -31,7 +31,7 @@
       :body [request-body s/Any]
       (let [todo (t/create request-body)
             id (:id todo)]
-        (header (ok todo) "location" (str "/todos/" id)))
+        (header (ok todo) "location" (:url todo)))
       )
 
     (GET "/:id" []
@@ -39,7 +39,7 @@
       :path-params [id :- s/Any]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
-        (header (ok todo) "location" (str "/todos/" id))
+        (header (ok todo) "location" (:url todo))
         (not-found)))
 
     (GET "/" []

@@ -45,7 +45,7 @@
       (is (= 200 (:status response)))
       (let [response (app (request :get (str "/todos/" id)))
             todo (parse-response-body response)]
-        (is (= todo {:id id :doof "cha" :completed false}))
+        (is (= todo {:id id :doof "cha" :completed false :url (str "/todos/" id)}))
         (is (= 200 (:status response)))))))
 
 (deftest test-get-all
