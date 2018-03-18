@@ -8,13 +8,13 @@
 (s/defschema ToDo
   {(s/optional-key :id) Id})
 
-(defn build-location
-  [request todo]
-  (str (name (:scheme request))
-       "://"
-       (-> request :headers (get "host"))
-       "/todos/"
-       (:id todo)))
+(defn with-url
+  [todo request]
+  (merge todo {:url (str (name (:scheme request))
+                         "://"
+                         (-> request :headers (get "host"))
+                         "/todos/"
+                         (:id todo))}))
 
 (defapi service-routes
   {:swagger {:ui   "/swagger-ui"
@@ -38,20 +38,20 @@
       :summary "Add a todo item"
       :body [request-body s/Any]
       (let [todo (t/create request-body)]
-        (header (ok todo) "location" (build-location request todo))))
+        (ok (with-url todo request))))
 
     (GET "/:id" request
       :return s/Any
       :path-params [id :- s/Any]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
-        (header (ok todo) "location" (build-location request todo))
+        (ok (with-url todo request))
         (not-found)))
 
-    (GET "/" []
+    (GET "/" request
       :return [s/Any]
       :summary "Get all todos"
-      (ok (t/read-all)))
+      (ok (map #(with-url % request) (t/read-all))))
 
     (DELETE "/:id" []
       :return s/Any

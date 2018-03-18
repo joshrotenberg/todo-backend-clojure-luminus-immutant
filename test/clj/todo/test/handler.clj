@@ -3,6 +3,7 @@
             [ring.mock.request :refer :all]
             [cheshire.core :as json]
             [todo.handler :refer :all]
+            [todo.routes.services :refer :all]
             [mount.core :as mount]))
 
 (use-fixtures
@@ -45,7 +46,10 @@
       (is (= 200 (:status response)))
       (let [response (app (request :get (str "/todos/" id)))
             todo (parse-response-body response)]
-        (is (= todo {:id id :doof "cha" :completed false :url (str "/todos/" id)}))
+        (is (= todo {:id        id
+                     :doof      "cha"
+                     :completed false
+                     :url       (str "http://localhost/todos/" id)}))
         (is (= 200 (:status response)))))))
 
 (deftest test-get-all
@@ -56,6 +60,8 @@
           todo2 (parse-response-body response2)
           response3 (app (request :get "/todos"))
           both (parse-response-body response3)]
+      (println todo1)
+      (println both)
       (is (= 200 (:status response1)))
       (is (= 200 (:status response2)))
       (is (= 200 (:status response3)))
