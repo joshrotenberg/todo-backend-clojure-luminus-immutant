@@ -1,6 +1,7 @@
 (ns todo.todos
   (:refer-clojure :exclude [read update])
   (:require [immutant.caching :as c]
+            [clojure.tools.logging :as log]
             [mount.core :refer [defstate]])
   (:import java.util.UUID))
 
@@ -18,6 +19,7 @@
         m (merge m {:url (str "/todos/" id)}
                  (when (nil? (:completed m))
                      {:completed false}))]
+    (log/info "created" m "with id" id)
     (assoc (c/swap-in! cache id (constantly m)) :id id)))
 
 (defn read

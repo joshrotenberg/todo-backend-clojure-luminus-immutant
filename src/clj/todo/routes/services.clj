@@ -1,5 +1,6 @@
 (ns todo.routes.services
   (:require [ring.util.http-response :refer :all]
+            [clojure.tools.logging :as log]
             [compojure.api.sweet :refer :all]
             [todo.todos :as t]
             [schema.core :as s]))
@@ -10,11 +11,11 @@
 
 (defn with-url
   [todo request]
-  (merge todo {:url (str (name (:scheme request))
-                         "://"
-                         (-> request :headers (get "host"))
-                         "/todos/"
-                         (:id todo))}))
+  (let [host (-> request :headers (get "host" "localhost"))
+        scheme (-> request :scheme name)
+        id (:id todo)]
+    (log/info "building url for" scheme host id)
+    (merge todo {:url (str scheme "://" host "/todos/" id)})))
 
 (defapi service-routes
   {:swagger {:ui   "/swagger-ui"
