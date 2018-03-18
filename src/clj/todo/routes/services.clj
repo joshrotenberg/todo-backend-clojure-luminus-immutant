@@ -13,6 +13,7 @@
   [todo request]
   (let [host (-> request :headers (get "host" "localhost"))
         scheme (-> request :scheme name)
+        scheme "https"
         id (:id todo)]
     (log/info "building url for" scheme host id)
     (merge todo {:url (str scheme "://" host "/todos/" id)})))
