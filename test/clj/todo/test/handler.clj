@@ -49,7 +49,7 @@
         (is (= todo {:id        id
                      :doof      "cha"
                      :completed false
-                     :url       (str "http://localhost/todos/" id)}))
+                     :url       (str "https://localhost/todos/" id)}))
         (is (= 200 (:status response)))))))
 
 (deftest test-get-all
