@@ -17,16 +17,7 @@
                 #'todo.handler/app
                 #'todo.config/env)))
 
-(deftest test-app
-  (testing "/"
-    (let [response (app (request :get "/todos"))]
-      (is (= 200 (:status response))))
-    (let [response (app (request :options "/todos"))]
-      (is (= 200 (:status response)))))
-
-  (testing "not-found route"
-    (let [response (app (request :get "/invalid"))]
-      (is (= 404 (:status response))))))
+;(defrecord ToDo [id title url completed order])
 
 (defn- parse-response-body
   [response]
@@ -44,24 +35,35 @@
   (app (-> (request :patch (str "/todos/" i))
            (json-body t))))
 
+(deftest test-app
+  (testing "/"
+    (let [response (app (request :get "/todos"))]
+      (is (= 200 (:status response))))
+    (let [response (app (request :options "/todos"))]
+      (is (= 200 (:status response)))))
+  (testing "not-found route"
+    (let [response (app (request :get "/invalid"))]
+      (is (= 404 (:status response))))))
+
 (deftest test-add
   (testing "add and get a todo"
-    (let [response (post-todo {:doof "cha"})
+    (let [response (post-todo {:title "what" :order 0})
           id (-> (:body response) slurp json/parse-string (get "id"))]
       (is (= 200 (:status response)))
       (let [response (app (request :get (str "/todos/" id)))
             todo (parse-response-body response)]
-        (is (= todo {:id        id
-                     :doof      "cha"
-                     :completed false
-                     :url       (str "http://localhost/todos/" id)}))
+        (is (= {:id        id
+                :completed false
+                :title "what"
+                :url       (str "http://localhost/todos/" id)
+                :order 0} todo))
         (is (= 200 (:status response)))))))
 
 (deftest test-get-all
   (testing "get all todos"
-    (let [response1 (post-todo {:one "one"})
+    (let [response1 (post-todo {:title "one" :order 0})
           todo1 (parse-response-body response1)
-          response2 (post-todo {:two "two"})
+          response2 (post-todo {:title "two" :order 0})
           todo2 (parse-response-body response2)
           response3 (app (request :get "/todos"))
           both (parse-response-body response3)]
@@ -73,17 +75,17 @@
 
 (deftest test-patch
   (testing "patch a todo"
-    (let [response1 (post-todo {:one "one"})
+    (let [response1 (post-todo {:title "one" :order 0})
           todo1 (parse-response-body response1)
-          response2 (patch-todo (:id todo1) {:one "uno"})
+          response2 (patch-todo (:id todo1) {:title "uno"})
           todo2 (parse-response-body response2)]
       (is (= 200 (:status response1)))
       (is (= 200 (:status response2)))
-      (is (= todo2 (merge todo1 {:one "uno"}))))))
+      (is (= todo2 (merge todo1 {:title "uno"}))))))
 
 (deftest test-delete
   (testing "delete a todo"
-    (let [response1 (post-todo {:one "uno"})
+    (let [response1 (post-todo {:title "uno" :order 2})
           id (:id (parse-response-body response1))
           response2 (app (request :get (str "/todos/" id)))
           response3 (app (request :delete (str "/todos/" id)))
@@ -95,9 +97,9 @@
 
 (deftest test-delete-all
   (testing "delete all todos"
-    (let [response1 (post-todo {:one "uno"})
+    (let [response1 (post-todo {:title "uno" :order 2})
           id1 (:id (parse-response-body response1))
-          response2 (post-todo {:two "dos"})
+          response2 (post-todo {:title "dos" :order 1})
           id2 (:id (parse-response-body response2))
           response3 (app (request :get "/todos"))
           both (parse-response-body response3)

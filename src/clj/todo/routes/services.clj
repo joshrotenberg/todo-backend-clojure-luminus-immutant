@@ -8,8 +8,22 @@
 
 (s/def Id s/Str)
 
-(s/defschema ToDo
-  {(s/optional-key :id) Id})
+(s/defschema ToDoCreate
+  {:title s/Str
+   :order s/Num
+   (s/optional-key :completed) s/Bool})
+
+(s/defschema ToDoUpdate
+  {(s/optional-key :title) s/Str
+   (s/optional-key :order) s/Num
+   (s/optional-key :completed) s/Bool})
+
+(s/defschema ToDoResponse
+  {:id Id
+   :title s/Str
+   :url s/Str
+   :completed s/Bool
+   :order s/Num})
 
 (defn with-url
   [todo request]
@@ -32,28 +46,29 @@
     (OPTIONS "/" []
       :summary "Support OPTIONS"
       (ok))
+
     (OPTIONS "/:id" []
       :summary "Support OPTIONS"
       (ok))
 
     (POST "/" request
-      :return s/Any
+      :return ToDoResponse
       :summary "Add a todo item"
-      :body [request-body s/Any]
+      :body [request-body ToDoCreate]
       (let [todo (t/create request-body)]
         (ok (with-url todo request))))
 
     (PATCH "/:id" request
-      :return s/Any
+      :return ToDoResponse
       :summary "Update a todo item"
-      :body [request-body s/Any]
+      :body [request-body ToDoUpdate]
       :path-params [id :- Id]
       (if-let [current (t/read id)]
         (ok (with-url (t/update id (merge current request-body)) request))
         (not-found)))
 
     (GET "/:id" request
-      :return s/Any
+      :return ToDoResponse
       :path-params [id :- Id]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
@@ -61,17 +76,16 @@
         (not-found)))
 
     (GET "/" request
-      :return [s/Any]
+      :return [ToDoResponse]
       :summary "Get all todos"
       (ok (map #(with-url % request) (t/read-all))))
 
     (DELETE "/:id" []
-      :return s/Any
+      :return ToDoResponse
       :path-params [id :- Id]
       :summary "Delete a todo"
       (ok (t/delete id)))
 
     (DELETE "/" []
-      :return s/Any
       :summary "Delete all todos"
       (ok (t/delete-all)))))
