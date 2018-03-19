@@ -1,6 +1,5 @@
 (ns user
-  (:require 
-            [mount.core :as mount]
+  (:require [mount.core :as mount]
             [todo.core :refer [start-app]]))
 
 (defn start []
@@ -12,5 +11,3 @@
 (defn restart []
   (stop)
   (start))
-
-

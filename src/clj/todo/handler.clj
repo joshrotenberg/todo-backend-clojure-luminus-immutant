@@ -13,7 +13,7 @@
 (mount/defstate app
   :start
   (middleware/wrap-base
-    (routes
-          #'service-routes
-      (route/not-found
-        "page not found"))))
+   (routes
+    #'service-routes
+    (route/not-found
+     "page not found"))))

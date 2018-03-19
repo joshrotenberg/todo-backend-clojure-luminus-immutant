@@ -6,9 +6,9 @@
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]))
 
 (defonce cors-headers
-         {"access-control-allow-headers" "content-type"
-          "access-control-allow-methods" "GET,HEAD,POST,DELETE,PUT,PATCH,OPTIONS"
-          "access-control-allow-origin"  "*"})
+  {"access-control-allow-headers" "content-type"
+   "access-control-allow-methods" "GET,HEAD,POST,DELETE,PUT,PATCH,OPTIONS"
+   "access-control-allow-origin"  "*"})
 
 (defn wrap-cors [handler]
   (fn [request]

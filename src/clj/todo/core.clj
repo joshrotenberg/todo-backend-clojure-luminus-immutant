@@ -15,10 +15,10 @@
 (mount/defstate ^{:on-reload :noop} http-server
   :start
   (http/start
-    (-> env
-        (assoc  :handler #'handler/app)
-        (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
-        (update :port #(or (-> env :options :port) %))))
+   (-> env
+       (assoc  :handler #'handler/app)
+       (update :io-threads #(or % (* 2 (.availableProcessors (Runtime/getRuntime)))))
+       (update :port #(or (-> env :options :port) %))))
   :stop
   (http/stop http-server))
 
@@ -29,7 +29,6 @@
   :stop
   (when repl-server
     (repl/stop repl-server)))
-
 
 (defn stop-app []
   (doseq [component (:stopped (mount/stop))]
