@@ -42,6 +42,15 @@
       (let [todo (t/create request-body)]
         (ok (with-url todo request))))
 
+    (PATCH "/:id" request
+      :return s/Any
+      :summary "Update a todo item"
+      :body [request-body s/Any]
+      :path-params [id :- s/Any]
+      (if-let [current (t/read id)]
+        (ok (with-url (t/update id (merge current request-body)) request))
+        (not-found)))
+
     (GET "/:id" request
       :return s/Any
       :path-params [id :- s/Any]

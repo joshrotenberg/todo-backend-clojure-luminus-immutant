@@ -39,6 +39,11 @@
   (app (-> (request :post "/todos")
            (json-body t))))
 
+(defn- patch-todo
+  [i t]
+  (app (-> (request :patch (str "/todos/" i))
+           (json-body t))))
+
 (deftest test-add
   (testing "add and get a todo"
     (let [response (post-todo {:doof "cha"})
@@ -66,6 +71,16 @@
       (is (= todo1 (some #{todo1} both)))
       (is (= todo2 (some #{todo2} both))))))
 
+(deftest test-patch
+  (testing "patch a todo"
+    (let [response1 (post-todo {:one "one"})
+          todo1 (parse-response-body response1)
+          response2 (patch-todo (:id todo1) {:one "uno"})
+          todo2 (parse-response-body response2)]
+      (is (= 200 (:status response1)))
+      (is (= 200 (:status response2)))
+      (is (= todo2 (merge todo1 {:one "uno"}))))))
+
 (deftest test-delete
   (testing "delete a todo"
     (let [response1 (post-todo {:one "uno"})
@@ -92,8 +107,7 @@
           todo2 (parse-response-body response5)
           response6 (app (request :delete "/todos"))
           response7 (app (request :get "/todos"))
-          gone (parse-response-body response7)
-          ]
+          gone (parse-response-body response7)]
       (is (= 200 (:status response1)))
       (is (= 200 (:status response2)))
       (is (= 200 (:status response3)))
