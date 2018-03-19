@@ -18,14 +18,13 @@
   (let [id (generate-id)
         m (merge m {:url (str "/todos/" id)}
                  (when (nil? (:completed m))
-                     {:completed false}))]
+                   {:completed false}))]
     (log/info "created" m "with id" id)
-    (assoc (c/swap-in! cache id (constantly m)) :id id)))
+    (c/swap-in! cache id (constantly (assoc m :id id)))))
 
 (defn read
   [id]
-  (when-let [todo (get cache id)]
-    (assoc todo :id id)))
+  (get cache id nil))
 
 (defn read-all
   []
