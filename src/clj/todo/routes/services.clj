@@ -10,7 +10,7 @@
 
 (s/defschema ToDoCreate
   {:title s/Str
-   :order s/Num
+   (s/optional-key :order) s/Num
    (s/optional-key :completed) s/Bool})
 
 (s/defschema ToDoUpdate
@@ -30,7 +30,6 @@
   (let [host (or (env :host) (-> request :headers (get "host" "localhost")))
         scheme (name (or (env :scheme) (:scheme request)))
         id (:id todo)]
-    (log/info "building url for" scheme host id)
     (merge todo {:url (str scheme "://" host "/todos/" id)})))
 
 (defapi service-routes

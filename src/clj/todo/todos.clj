@@ -19,7 +19,6 @@
         m (merge m {:url (str "/todos/" id)}
                  (when (nil? (:completed m))
                    {:completed false}))]
-    (log/info "created" m "with id" id)
     (c/swap-in! cache id (constantly (assoc m :id id)))))
 
 (defn read

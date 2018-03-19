@@ -18,6 +18,8 @@ To start a web server for the application, run:
 
     lein run 
 
+You can then navigate to http://localhost:3000/swagger-ui/index.html and play around with the API there.
+
 ## ToDo Backend
 
 Run the tests [here][4]
