@@ -6,7 +6,8 @@
             [todo.todos :as t]
             [schema.core :as s]))
 
-(s/def Id s/Num)
+(s/def Id s/Str)
+
 (s/defschema ToDo
   {(s/optional-key :id) Id})
 
@@ -46,14 +47,14 @@
       :return s/Any
       :summary "Update a todo item"
       :body [request-body s/Any]
-      :path-params [id :- s/Any]
+      :path-params [id :- Id]
       (if-let [current (t/read id)]
         (ok (with-url (t/update id (merge current request-body)) request))
         (not-found)))
 
     (GET "/:id" request
       :return s/Any
-      :path-params [id :- s/Any]
+      :path-params [id :- Id]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
         (ok (with-url todo request))
@@ -66,7 +67,7 @@
 
     (DELETE "/:id" []
       :return s/Any
-      :path-params [id :- s/Any]
+      :path-params [id :- Id]
       :summary "Delete a todo"
       (ok (t/delete id)))
 
