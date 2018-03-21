@@ -4,30 +4,7 @@
             [todo.config :refer [env]]
             [compojure.api.sweet :refer :all]
             [todo.todos :as t]
-            [schema.core :as s]))
-
-(s/def Id s/Str)
-(s/def Title s/Str)
-(s/def Order s/Num)
-(s/def Completed s/Bool)
-(s/def Url s/Str)
-
-(s/defschema ToDoCreate
-  {:title Title
-   (s/optional-key :order) Order
-   (s/optional-key :completed) Completed})
-
-(s/defschema ToDoUpdate
-  {(s/optional-key :title) Title
-   (s/optional-key :order) Order
-   (s/optional-key :completed) Completed})
-
-(s/defschema ToDoResponse
-  {:id Id
-   :title Title
-   :url  Url
-   :completed Completed
-   (s/optional-key :order) Order})
+            [todo.schema :as s]))
 
 (defn with-url
   [todo request]
@@ -55,37 +32,37 @@
       (ok))
 
     (POST "/" request
-      :return ToDoResponse
+      :return s/ToDoResponse
       :summary "Add a todo item"
-      :body [request-body ToDoCreate]
+      :body [request-body s/ToDoCreate]
       (let [todo (t/create request-body)]
         (ok (with-url todo request))))
 
     (PATCH "/:id" request
-      :return ToDoResponse
+      :return s/ToDoResponse
       :summary "Update a todo item"
-      :body [request-body ToDoUpdate]
-      :path-params [id :- Id]
+      :body [request-body s/ToDoUpdate]
+      :path-params [id :- s/Id]
       (if-let [current (t/read id)]
         (ok (with-url (t/update id (merge current request-body)) request))
         (not-found)))
 
     (GET "/:id" request
-      :return ToDoResponse
-      :path-params [id :- Id]
+      :return s/ToDoResponse
+      :path-params [id :- s/Id]
       :summary "Find a todo by id"
       (if-let [todo (t/read id)]
         (ok (with-url todo request))
         (not-found)))
 
     (GET "/" request
-      :return [ToDoResponse]
+      :return [s/ToDoResponse]
       :summary "Get all todos"
       (ok (map #(with-url % request) (t/read-all))))
 
     (DELETE "/:id" []
-      :return ToDoResponse
-      :path-params [id :- Id]
+      :return s/ToDoResponse
+      :path-params [id :- s/Id]
       :summary "Delete a todo"
       (ok (t/delete id)))
 

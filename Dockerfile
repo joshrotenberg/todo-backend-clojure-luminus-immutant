@@ -1,5 +1,5 @@
 FROM java:8-alpine
-MAINTAINER Your Name <you@example.com>
+MAINTAINER Josh Rotenberg <joshrotenberg@gmail.com>
 
 ADD target/uberjar/todo.jar /todo/app.jar
 

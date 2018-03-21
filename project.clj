@@ -55,8 +55,8 @@
                    :source-paths   ["env/dev/clj"]
                    :resource-paths ["env/dev/resources"]
                    :repl-options   {:init-ns user}}
-   ;:injections [(require 'pjstadig.humane-test-output)
-   ;             (pjstadig.humane-test-output/activate!)]
+   :injections [(require 'pjstadig.humane-test-output)
+                (pjstadig.humane-test-output/activate!)]
 
 
    :project/test  {:jvm-opts       ["-server" "-Dconf=test-config.edn"]
